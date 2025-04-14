@@ -1,4 +1,4 @@
-class Verb {
+export class Verb {
 	//plain_form and verb_type are both strings
 	constructor(plain, type) {
 		this.plain = plain;
@@ -109,4 +109,3 @@ class Verb {
 	
 }
 
-export default Verb;

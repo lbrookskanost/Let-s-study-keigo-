@@ -1,5 +1,5 @@
 
-class VerbalNoun {
+export class VerbalNoun {
 	//plain_form and origin are both strings
 	constructor(plain, origin) {
 		this.plain = plain;
@@ -28,4 +28,3 @@ class VerbalNoun {
 		}
 	}
 }
-export default VerbalNoun;
