@@ -1,12 +1,5 @@
 import { Verb } from './verb.js';
 import { VerbalNoun } from './verbalnoun.js';
-
-/*loop: 
- - generate random word from wordlist and set id=word to the word
- - seteventlistener on enter key pressed after filling out textbox
- -if user got it right, send maru; if not, send batz
- -restart loop 
-  right now, keep this to honorific only, we can add functionality later */
   
 let verbs_list = [new Verb("うごかす", "u"), new Verb("切る", "u"), new Verb("こる", "u"),
     new Verb("すう", "u"), new Verb("だす", "u"), new Verb("つまる", "u"), new Verb("はかる", "u"),
@@ -21,15 +14,25 @@ let verbs_list = [new Verb("うごかす", "u"), new Verb("切る", "u"), new Ve
     new Verb("知っている", "ru"),new Verb("会う", "u"),new Verb("聞く", "u"),new Verb("たずねる", "ru"),
     new Verb("思う", "u"), new VerbalNoun("心配する", "Chinese"),new VerbalNoun("ジャンプする", "Loan")];
 
-let rand_word;
-
 function getRandomInt(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
 }
 
+function randomWord () {
+	const word_spawn = document.querySelector("#word");
+	rand_word = verbs_list[getRandomInt(0, verbs_list.length - 1)];
+	word_spawn.textContent = rand_word.plain;
+}
+
+let rand_word;
+
 function run () {
+	//toggle visibility of dom elements
+	for (let i = 0; i < game_elements.length; i++) {
+    game_elements[i].style.display = "block";
+    }
 	const text_box = document.querySelector("#submit");
 	randomWord(); 
 	text_box.addEventListener("keydown", function(e) {
@@ -54,10 +57,14 @@ function validate (e) {
 	randomWord();
 }
 
-function randomWord () {
-	const word_spawn = document.querySelector("#word");
-	rand_word = verbs_list[getRandomInt(0, verbs_list.length - 1)];
-	word_spawn.textContent = rand_word.plain;
-}
+//set visibility of word, answer box, score to invisible
+let game_elements = document.querySelectorAll(".game");
+console.log(game_elements);
+for (let i = 0; i < game_elements.length; i++) {
+    game_elements[i].style.display = 'none';
+  }
 
-document.addEventListener("DOMContentLoaded", run);
+//create checkbox handler- initialize both to toggled, don't allow the user to untoggle more than 1
+//and send its params to run
+let button = document.querySelector("#start");
+button.addEventListener("click", run); //switch this to button_down and add type params to run (doesn't that suck tho eugh)

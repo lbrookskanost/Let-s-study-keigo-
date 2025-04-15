@@ -8,19 +8,21 @@
 			display: inline;
 			margin-right: 10px;
 		}
+		
 	</style>
 </head>
 
 <body>
-<!-- bare-bones, we want
-	1. word to appear on screen
-	2. text box for user to write in 
-	3. circle/x to appear on screen after user input
--->
-<p id="word"></p> <!-- hi word -->
-<p id="batz_maru"></p> 
-<input type="text" id="submit">
-<p id="score">0</p>
+<input type="checkbox" id="honorific"> <!-- checkboxes start checked...-->
+<label for="honorific">Honorific     </label>
+<input type="checkbox" id="humble">
+<label for="humble">Humble       </label>
+<input type="button" id="start" value="Go!"> <!-- initializes practice -->
+
+<p id="word" class="game"></p> <!-- ideally these should all be invisible on start -->
+<p id="batz_maru" class="game"></p> 
+<input type="text" id="submit" class="game">
+<p id="score" class="game">0</p>
 
 <!-- ok lets get JSing -->
 <script type="module" src="../js/script.js"></script>
