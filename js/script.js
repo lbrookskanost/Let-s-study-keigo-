@@ -28,26 +28,46 @@ function randomWord () {
 
 let rand_word; //consider moving this out of global scope, or having randomWord return a word...?
 
-function run () {
+function run (honorific_run, humble_run) { //both params are bool
 	let game_elements = document.querySelectorAll(".game");
 	for (let i = 0; i < game_elements.length; i++) {
-		game_elements[i].style.display = 'block'; //this is bad
+		game_elements[i].style.display = 'inline'; 
 	  }
 	const text_box = document.querySelector("#submit");
 	randomWord(); 
+	let run_style;
+	if (honorific_run && humble_run){
+		let rand_int = getRandomInt(0, 1);
+		run_style = ((rand_int === 0) ?  "honorific" : "humble");
+		document.querySelector("#type").innerHTML = run_style;
+	} else { 
+		run_style = (honorific_run ? "honorific" : "humble");
+		document.querySelector("#type").innerHTML = "";
+		}
 	text_box.addEventListener("keydown", function(e) { //validates input on enter
 		if (e.code === "Enter") { 
-		validate(e); 
+		validate(e, run_style); 
 		text_box.value = "";}
 	});
 }
 
-function validate (e) {
+function validate (e, run_style) {
 	const guess = e.target.value.trim();
 	const emoji = document.querySelector("#batz_maru"); //should this be const?
 	const score = document.querySelector("#score");
 	let integer_score = parseInt(score.textContent) || 0;
-	if (rand_word.honorific().includes(guess)){ //need to change this based on params-- perhaps those should be global vars
+	let answer;
+	switch (run_style) {
+		case "honorific":
+			answer = rand_word.honorific().includes(guess);
+			break;
+		case "humble":
+			answer = rand_word.humble().includes(guess);
+			break;
+		default:
+			return;
+	}
+	if (answer){ //need to change this based on params-- perhaps those should be global vars
 		emoji.innerHTML = "🙆‍♀️"; 
 		integer_score += 1;
 	} else {
@@ -60,6 +80,10 @@ function validate (e) {
 document.addEventListener("DOMContentLoaded", () => {
 	//create checkbox handler- initialize both to toggled, don't allow the user to untoggle more than 1
 	//and send its params to run.
+	let checkboxes = document.getElementsByTagName("input");
+	checkboxes = Array.from(checkboxes).filter(input => input.type === 'checkbox');
 	let button = document.querySelector("#start");
-	button.addEventListener("click", run); //add arrow function to run :P
+	button.addEventListener("click", function() {
+		run(checkboxes[0].checked, checkboxes[1].checked);
+		}); //add arrow function to run :P
 });

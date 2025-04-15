@@ -4,27 +4,24 @@
 	<meta charset = "UTF-8">
 	<title>Let's Study Keigo!</title>
 	<style>
-		#batz_maru {
-			display: inline;
-			margin-right: 10px;
-		}
-		.game {
+		.game { <!-- this is UGLY -->
 			display: none;
+			margin-right: 50px; 
 		}
 	</style>
 </head>
 
 <body>
-<input type="checkbox" id="honorific"> <!-- checkboxes start checked... fix-->
+<input type="checkbox" id="honorific" checked> 
 <label for="honorific">Honorific     </label> <!-- this is dumb, add \t -->
-<input type="checkbox" id="humble">
+<input type="checkbox" id="humble" checked>
 <label for="humble">Humble       </label>
-<input type="button" id="start" value="Go!"> <!-- initializes practice : make this less ugly! -->
+<input type="button" id="start" value="Go!"></br><!-- initializes practice : make this less ugly! -->
 
-<!-- add word that says honorific/humble if doing mixed practice-->
-<p id="word" class="game"></p> 
-<p id="batz_maru"></p> 
-<input type="text" id="submit" class="game">
+<p id="word" class="game"></p>
+<p id="type" class="game"></p></br>
+<p id="batz_maru" class="game"></p> 
+<input type="text" id="submit" class="game"></br>
 <p id="score" class="game">0</p>
 
 <script type="module" src="../js/script.js"></script>
