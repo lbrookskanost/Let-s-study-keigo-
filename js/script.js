@@ -30,9 +30,10 @@ let rand_word;
 
 function run () {
 	//toggle visibility of dom elements
+	let game_elements = document.querySelectorAll(".game");
 	for (let i = 0; i < game_elements.length; i++) {
-    game_elements[i].style.display = "block";
-    }
+		game_elements[i].style.display = 'block';
+	  }
 	const text_box = document.querySelector("#submit");
 	randomWord(); 
 	text_box.addEventListener("keydown", function(e) {
@@ -57,14 +58,12 @@ function validate (e) {
 	randomWord();
 }
 
-//set visibility of word, answer box, score to invisible
-let game_elements = document.querySelectorAll(".game");
-console.log(game_elements);
-for (let i = 0; i < game_elements.length; i++) {
-    game_elements[i].style.display = 'none';
-  }
+document.addEventListener("DOMContentLoaded", () => {
+	//set visibility of word, answer box, score to invisible
+	
 
-//create checkbox handler- initialize both to toggled, don't allow the user to untoggle more than 1
-//and send its params to run
-let button = document.querySelector("#start");
-button.addEventListener("click", run); //switch this to button_down and add type params to run (doesn't that suck tho eugh)
+	//create checkbox handler- initialize both to toggled, don't allow the user to untoggle more than 1
+	//and send its params to run
+	let button = document.querySelector("#start");
+	button.addEventListener("click", run); //switch this to button_down and add type params to run (doesn't that suck tho eugh)
+});
