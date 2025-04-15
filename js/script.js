@@ -26,17 +26,16 @@ function randomWord () {
 	word_spawn.textContent = rand_word.plain;
 }
 
-let rand_word;
+let rand_word; //consider moving this out of global scope, or having randomWord return a word...?
 
 function run () {
-	//toggle visibility of dom elements
 	let game_elements = document.querySelectorAll(".game");
 	for (let i = 0; i < game_elements.length; i++) {
-		game_elements[i].style.display = 'block';
+		game_elements[i].style.display = 'block'; //this is bad
 	  }
 	const text_box = document.querySelector("#submit");
 	randomWord(); 
-	text_box.addEventListener("keydown", function(e) {
+	text_box.addEventListener("keydown", function(e) { //validates input on enter
 		if (e.code === "Enter") { 
 		validate(e); 
 		text_box.value = "";}
@@ -45,25 +44,22 @@ function run () {
 
 function validate (e) {
 	const guess = e.target.value.trim();
-	const emoji = document.querySelector("#batz_maru");
+	const emoji = document.querySelector("#batz_maru"); //should this be const?
 	const score = document.querySelector("#score");
 	let integer_score = parseInt(score.textContent) || 0;
-	if (rand_word.honorific().includes(guess)){
-		emoji.innerHTML = "🙆‍"; 
+	if (rand_word.honorific().includes(guess)){ //need to change this based on params-- perhaps those should be global vars
+		emoji.innerHTML = "🙆‍♀️"; 
 		integer_score += 1;
 	} else {
-		emoji.innerHTML = "🙅‍";
+		emoji.innerHTML = "🙅‍♀️";
 	}
 	score.textContent = integer_score.toString();
 	randomWord();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	//set visibility of word, answer box, score to invisible
-	
-
 	//create checkbox handler- initialize both to toggled, don't allow the user to untoggle more than 1
-	//and send its params to run
+	//and send its params to run.
 	let button = document.querySelector("#start");
-	button.addEventListener("click", run); //switch this to button_down and add type params to run (doesn't that suck tho eugh)
+	button.addEventListener("click", run); //add arrow function to run :P
 });
